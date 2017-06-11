@@ -11,12 +11,12 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,15 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
         SellItem limJuice = new SellItem(this, "Limetten Saft", 2.5f);
 
-        TableRow summary = initSummaryRow();
+        LinearLayout summary = initSummaryRow();
 
         bBaoKBundle.setBackgroundColor(Color.rgb(255,223,117));
         bBaoVBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollKBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollVBundle.setBackgroundColor(Color.rgb(255,223,117));
         limJuice.setBackgroundColor(Color.rgb(255,223,117));
-
-
 
         itemTable.addView(bBaoK);
         itemTable.addView(bBaoV);
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private TableRow initSummaryRow(){
+    /*private TableRow initSummaryRow(){
 
         TableLayout.LayoutParams totalLabelParam = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
@@ -93,15 +91,77 @@ public class MainActivity extends AppCompatActivity {
         submitBtn.setText("submit");
         submitBtn.setGravity(Gravity.CENTER);
 
+        Button showListBtn = new Button(this);
+        showListBtn.setText("show List");
+        showListBtn.setGravity(Gravity.CENTER);
+
         totalRow.addView(textLabel);
         totalRow.addView(totalSum);
         totalRow.addView(submitBtn);
+        totalRow.addView(showListBtn);
         totalRow.setGravity(Gravity.CENTER);
 
         submitBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 submit();
+            }
+        });
+
+        showListBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showCSVList();
+            }
+        });
+
+        return  totalRow;
+    }*/
+
+    private LinearLayout initSummaryRow(){
+
+        TableLayout.LayoutParams totalLabelParam = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        LinearLayout totalRow = new LinearLayout(this);
+        totalRow.setLayoutParams(totalLabelParam);
+        totalRow.setBackgroundColor(Color.rgb(119,182,239));
+
+        LinearLayout.LayoutParams txtLayParam = new LinearLayout.LayoutParams(400,200);
+        TextView textLabel = new TextView(this);
+        textLabel.setText("Gesamtsumme:");
+        textLabel.setLayoutParams(txtLayParam);
+        textLabel.setGravity(Gravity.CENTER);
+
+        TextView totalSum = new TextView(this);
+        totalSum.setId(R.id.totalSumLabel);
+        totalSum.setText("0€");
+
+        Button submitBtn = new Button(this);
+        submitBtn.setText("submit");
+        submitBtn.setGravity(Gravity.CENTER);
+
+        Button showListBtn = new Button(this);
+        showListBtn.setText("show List");
+        showListBtn.setGravity(Gravity.CENTER);
+
+        totalRow.addView(textLabel);
+        totalRow.addView(totalSum);
+        totalRow.addView(submitBtn);
+        totalRow.addView(showListBtn);
+        totalRow.setGravity(Gravity.CENTER);
+
+        submitBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                submit();
+            }
+        });
+
+        showListBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showCSVList();
             }
         });
 
@@ -139,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         if (!totalSum.equals("0€") && !totalSum.equals("0.0€"))  {
             String currentEntry = getCurrentEntry();
             csvFilehandler.writeFile(currentEntry);
-            Toast toast = Toast.makeText(this, "Saved", 100);
+            Toast toast = Toast.makeText(this, "Saved", Toast.LENGTH_SHORT);
             toast.show();
             resetStats();
         }
@@ -197,8 +257,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showCSVList() {
-        Intent csvViewer = csvFilehandler.showFile();
-        startActivity(csvViewer);
+        startActivity(new Intent(this, CSVListView.class));
     }
 
 
