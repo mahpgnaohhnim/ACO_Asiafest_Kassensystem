@@ -21,9 +21,17 @@ import java.lang.String;
 
 class FileCSV {
 
-    int countAdult, countChild;
-    String header ="Postleitzahl;Kinder;Erwachsene;Preis;Datum;Grund\n";
-    String plz, sum, timeStamp, cause;
+    String header ="Banh Bao Klassik;" +
+            "Banh Bao Vegetarisch;"+
+            "Banh Bao Klassik Bundle;"+
+            "Banh Bao Vegetarisch Bundle;"+
+            "Sommer Rollen Klassik;"+
+            "Sommer Rollen Vegetarisch;"+
+            "Sommer Rollen Klassik Bundle;"+
+            "Sommer Rollen Vegetarisch Bundle;"+
+            "Limetten Saft;"+
+            "GesamtPreis;"+
+            "Datum;\n";
 
     private Context context;
 
@@ -35,16 +43,12 @@ class FileCSV {
         this.context = context;
     }
 
-    public void writeFile(){
-        timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+    public void writeFile(String input){
+        String content = input;
+        String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+        content += timeStamp+"\n";
 
-        String content = plz + ";";
-        content += countChild + ";";
-        content += countAdult + ";";
-        content += sum + ";";
-        content += timeStamp + ";";
-        content += cause + ";";
-        content += "\n";
+
 
 
         try {

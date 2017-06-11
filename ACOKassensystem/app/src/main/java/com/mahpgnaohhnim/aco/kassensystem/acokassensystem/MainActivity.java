@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,19 +68,6 @@ public class MainActivity extends AppCompatActivity {
         itemTable.addView(limJuice);
         itemTable.addView(summary);
 
-        /*ArrayList<View> allButtons;
-        allButtons = ((LinearLayout) findViewById(R.id.itemTable)).getTouchables();
-        for(View touchables : allButtons){
-            touchables.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if(event.getAction() == MotionEvent.ACTION_UP){
-                        updateTotalSum();
-                    }
-                    return false;
-                }
-            });
-        }*/
     }
 
     private TableRow initSummaryRow(){
@@ -102,9 +89,21 @@ public class MainActivity extends AppCompatActivity {
         totalSum.setId(R.id.totalSumLabel);
         totalSum.setText("0€");
 
+        Button submitBtn = new Button(this);
+        submitBtn.setText("submit");
+        submitBtn.setGravity(Gravity.CENTER);
+
         totalRow.addView(textLabel);
         totalRow.addView(totalSum);
+        totalRow.addView(submitBtn);
         totalRow.setGravity(Gravity.CENTER);
+
+        submitBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                submit();
+            }
+        });
 
         return  totalRow;
     }
@@ -131,47 +130,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*private void submit() {
-        String price = totalSum.getText().toString();
-        String cause = dropDown.getSelectedItem().toString();
-        String count = totalCount.getText().toString();
-        if (count != "0") {
+    private void submit() {
 
-            csvFilehandler.countAdult = currentAdultCount;
-            csvFilehandler.plz = postalCode.getText().toString();
-            csvFilehandler.countChild = currentChildCount;
-            csvFilehandler.sum = price;
-            csvFilehandler.cause = cause;
+        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumLabel);
+        String totalSum = totalSumLabel.getText().toString();
+        System.out.println(totalSum);
 
-            csvFilehandler.writeFile();
-
+        if (!totalSum.equals("0€") && !totalSum.equals("0.0€"))  {
+            String currentEntry = getCurrentEntry();
+            csvFilehandler.writeFile(currentEntry);
+            Toast toast = Toast.makeText(this, "Saved", 100);
+            toast.show();
             resetStats();
         }
     }
 
+    private String getCurrentEntry(){
+        String currentEntry = "";
+        float finalPrice = 0;
+        int tableLength = itemTable.getChildCount();
+        for(int i =0; i<tableLength; i++){
+            View child = itemTable.getChildAt(i);
+            if(child instanceof SellItem){
+                SellItem item = (SellItem) child;
+                int quantity = item.quantity;
+                float price = item.sellPrice;
+                float sum = quantity*price;
+                finalPrice += sum;
 
-    private void updateCounts() {
-        int priceChild = 2;
-        int priceAdult = 5;
-        int totalChildPrice = currentChildCount * priceChild;
-        int totalAdultPrice = currentAdultCount * priceAdult;
-        int totalPrice = totalAdultPrice + totalChildPrice;
-        int counts = currentChildCount + currentAdultCount;
+                currentEntry += quantity+";";
+            }
+        }
+        currentEntry += finalPrice+"€;";
 
-        totalSum.setText(totalPrice + "€");
-        childSum.setText(totalChildPrice + "€");
-        adultSum.setText(totalAdultPrice + "€");
-        totalCount.setText(Integer.toString(counts));
+        return currentEntry;
     }
 
+
     private void resetStats() {
-        currentAdultCount = 0;
-        currentChildCount = 0;
-        countChild.setText("0");
-        countAdult.setText("0");
-        postalCode.setText("");
-        updateCounts();
-    }*/
+        int tableLength = itemTable.getChildCount();
+        for(int i =0; i<tableLength; i++){
+            View child = itemTable.getChildAt(i);
+            if(child instanceof SellItem){
+                SellItem item = (SellItem) child;
+                item.resetStats();
+            }
+        }
+    }
 
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= 23) {

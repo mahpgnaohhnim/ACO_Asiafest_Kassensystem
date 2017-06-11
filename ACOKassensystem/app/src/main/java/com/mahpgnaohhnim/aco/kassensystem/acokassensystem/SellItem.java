@@ -1,6 +1,5 @@
 package com.mahpgnaohhnim.aco.kassensystem.acokassensystem;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -59,7 +58,7 @@ public class SellItem extends TableRow {
         quantityLabel.setGravity(Gravity.CENTER);
         quantityLabel.setLayoutParams(textLabelParams);
 
-        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(90,100);
+        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(100,100);
         btnParams.gravity = Gravity.CENTER;
 
         addBtn.setText("+");
@@ -69,7 +68,6 @@ public class SellItem extends TableRow {
             @Override
             public void onClick(View v){
                 quantity += 1;
-
                 updateLabels();
             }
         });
