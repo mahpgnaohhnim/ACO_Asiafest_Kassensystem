@@ -5,16 +5,19 @@ package com.mahpgnaohhnim.aco.kassensystem.acokassensystem;
  */
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.lang.String;
 
@@ -39,6 +42,7 @@ class FileCSV {
     String fileName = "Eintrag.csv";
 
 
+
     public FileCSV(Context context){
         this.context = context;
     }
@@ -48,12 +52,9 @@ class FileCSV {
         String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
         content += timeStamp+"\n";
 
-
-
-
         try {
-            File path = context.getExternalFilesDir(null);
 
+            File path = context.getExternalFilesDir(null);
             File file = new File(path, fileName); // external Storage
             FileWriter out = new FileWriter(file, true);
             if(file.length() == 0){
@@ -69,26 +70,45 @@ class FileCSV {
 
     }
 
-    public Intent showFile(){
-        Intent intent = new Intent();
-
+    public ArrayList<String> getCSVArrList(){
+        ArrayList<String> arrList = new ArrayList<>();
         File path = context.getExternalFilesDir(null);
         File file = new File(path, fileName);
+        try{
 
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file),getMimeType(file.getAbsolutePath()));
-        return intent;
+            BufferedReader inputStream = new BufferedReader(new FileReader(file));
+            String readData;
+            while((readData = inputStream.readLine()) != null){
+                readData = readData.replace(";", "|");
+                arrList.add(readData);
+            }
+
+        }catch (IOException e){
+            Log.e("Exception", "File read failed: " + e.toString());
+        }
+
+        return arrList;
     }
 
-    private String getMimeType(String url) {
-        String parts[]=url.split("\\.");
-        String extension=parts[parts.length-1];
-        String type = null;
-        if (extension != null) {
-            MimeTypeMap mime = MimeTypeMap.getSingleton();
-            type = mime.getMimeTypeFromExtension(extension);
+
+    public void rewriteFile(ArrayList<String> list){
+        String content = "";
+        for(String listItem :list){
+            listItem.replace("|",";");
+            content += listItem+"\n";
         }
-        return type;
+
+        try {
+            File path = context.getExternalFilesDir(null);
+            File file = new File(path, fileName); // external Storage
+            FileWriter out = new FileWriter(file,false);
+            out.append(content);
+            out.flush();
+            out.close();
+        }catch (IOException e){
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+
     }
 
     public void deleteLastLine(){
