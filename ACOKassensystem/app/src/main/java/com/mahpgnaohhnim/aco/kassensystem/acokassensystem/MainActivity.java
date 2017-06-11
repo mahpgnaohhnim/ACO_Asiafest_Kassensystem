@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,56 +66,6 @@ public class MainActivity extends AppCompatActivity {
         itemTable.addView(summary);
 
     }
-
-    /*private TableRow initSummaryRow(){
-
-        TableLayout.LayoutParams totalLabelParam = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-
-
-        TableRow totalRow = new TableRow(this);
-        totalRow.setLayoutParams(totalLabelParam);
-        totalRow.setBackgroundColor(Color.rgb(119,182,239));
-
-        TableRow.LayoutParams txtLayParam = new TableRow.LayoutParams(80,200);
-        TextView textLabel = new TextView(this);
-        textLabel.setText("Gesamtsumme:");
-        textLabel.setLayoutParams(txtLayParam);
-        textLabel.setGravity(Gravity.CENTER);
-
-        TextView totalSum = new TextView(this);
-        totalSum.setId(R.id.totalSumLabel);
-        totalSum.setText("0€");
-
-        Button submitBtn = new Button(this);
-        submitBtn.setText("submit");
-        submitBtn.setGravity(Gravity.CENTER);
-
-        Button showListBtn = new Button(this);
-        showListBtn.setText("show List");
-        showListBtn.setGravity(Gravity.CENTER);
-
-        totalRow.addView(textLabel);
-        totalRow.addView(totalSum);
-        totalRow.addView(submitBtn);
-        totalRow.addView(showListBtn);
-        totalRow.setGravity(Gravity.CENTER);
-
-        submitBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                submit();
-            }
-        });
-
-        showListBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                showCSVList();
-            }
-        });
-
-        return  totalRow;
-    }*/
 
     private LinearLayout initSummaryRow(){
 

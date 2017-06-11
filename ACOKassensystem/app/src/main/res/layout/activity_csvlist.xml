@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <ListView
         android:id="@+id/csvListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/listViewNav"
+        android:layout_weight="1" />
 
     <LinearLayout
+        android:id="@+id/listViewNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/deleteBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#FF4900"
-            android:text="Delete" />
 
         <Button
             android:id="@+id/backBtn"
@@ -28,6 +25,14 @@
             android:layout_weight="1"
             android:background="#53A1E8"
             android:text="zuruck" />
+
+        <Button
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FF4900"
+            android:text="Delete" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
