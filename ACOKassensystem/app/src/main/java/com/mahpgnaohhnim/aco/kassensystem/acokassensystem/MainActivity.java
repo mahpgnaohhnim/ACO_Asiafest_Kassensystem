@@ -8,12 +8,22 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
     FileCSV csvFilehandler = new FileCSV(this);
     TableLayout itemTable;
+    float totalSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermission();
 
+        totalSum = 0;
         itemTable = (TableLayout) findViewById(R.id.itemTable);
 
         SellItem bBaoK = new SellItem(this, "Banh Bao Klassisch", 3.5f);
@@ -36,13 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
         SellItem limJuice = new SellItem(this, "Limetten Saft", 2.5f);
 
+        TableRow summary = initSummaryRow();
+
         bBaoKBundle.setBackgroundColor(Color.rgb(255,223,117));
         bBaoVBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollKBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollVBundle.setBackgroundColor(Color.rgb(255,223,117));
         limJuice.setBackgroundColor(Color.rgb(255,223,117));
 
-        System.out.println(sRollKBundle);
 
 
         itemTable.addView(bBaoK);
@@ -54,6 +66,68 @@ public class MainActivity extends AppCompatActivity {
         itemTable.addView(sRollKBundle);
         itemTable.addView(sRollVBundle);
         itemTable.addView(limJuice);
+        itemTable.addView(summary);
+
+        /*ArrayList<View> allButtons;
+        allButtons = ((LinearLayout) findViewById(R.id.itemTable)).getTouchables();
+        for(View touchables : allButtons){
+            touchables.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if(event.getAction() == MotionEvent.ACTION_UP){
+                        updateTotalSum();
+                    }
+                    return false;
+                }
+            });
+        }*/
+    }
+
+    private TableRow initSummaryRow(){
+
+        TableLayout.LayoutParams totalLabelParam = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+
+        TableRow totalRow = new TableRow(this);
+        totalRow.setLayoutParams(totalLabelParam);
+        totalRow.setBackgroundColor(Color.rgb(119,182,239));
+
+        TableRow.LayoutParams txtLayParam = new TableRow.LayoutParams(80,200);
+        TextView textLabel = new TextView(this);
+        textLabel.setText("Gesamtsumme:");
+        textLabel.setLayoutParams(txtLayParam);
+        textLabel.setGravity(Gravity.CENTER);
+
+        TextView totalSum = new TextView(this);
+        totalSum.setId(R.id.totalSumLabel);
+        totalSum.setText("0€");
+
+        totalRow.addView(textLabel);
+        totalRow.addView(totalSum);
+        totalRow.setGravity(Gravity.CENTER);
+
+        return  totalRow;
+    }
+
+    public void updateTotalSum(){
+        calcTotalSum();
+        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumLabel);
+        totalSumLabel.setText(Float.toString(totalSum)+"€");
+    }
+
+    private void calcTotalSum(){
+        int tableLength = itemTable.getChildCount();
+        totalSum = 0;
+        for(int i =0; i<tableLength; i++){
+            View child = itemTable.getChildAt(i);
+            if(child instanceof SellItem){
+                SellItem item = (SellItem) child;
+                int quantity = item.quantity;
+                float price = item.sellPrice;
+                float sum = quantity*price;
+                totalSum += sum;
+            }
+        }
     }
 
 
@@ -121,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         Intent csvViewer = csvFilehandler.showFile();
         startActivity(csvViewer);
     }
+
 
 
     /*private void deleteLine() {
