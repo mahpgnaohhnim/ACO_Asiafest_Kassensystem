@@ -33,6 +33,13 @@
             android:layout_weight="1"
             android:background="#FF4900"
             android:text="Delete" />
+
+        <Button
+            android:id="@+id/uploadBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Upload" />
     </LinearLayout>
 
 </RelativeLayout>
