@@ -8,10 +8,8 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         checkPermission();
 
@@ -46,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         SellItem limJuice = new SellItem(this, "Limetten Saft", 2.5f);
 
-        LinearLayout summary = initSummaryRow();
+        initSummaryRow();
 
         bBaoKBundle.setBackgroundColor(Color.rgb(255,223,117));
         bBaoVBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollKBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollVBundle.setBackgroundColor(Color.rgb(255,223,117));
-        limJuice.setBackgroundColor(Color.rgb(255,223,117));
 
         itemTable.addView(bBaoK);
         itemTable.addView(bBaoV);
@@ -63,42 +60,12 @@ public class MainActivity extends AppCompatActivity {
         itemTable.addView(sRollKBundle);
         itemTable.addView(sRollVBundle);
         itemTable.addView(limJuice);
-        itemTable.addView(summary);
-
     }
 
-    private LinearLayout initSummaryRow(){
+    private void initSummaryRow(){
 
-        TableLayout.LayoutParams totalLabelParam = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-
-
-        LinearLayout totalRow = new LinearLayout(this);
-        totalRow.setLayoutParams(totalLabelParam);
-        totalRow.setBackgroundColor(Color.rgb(119,182,239));
-
-        LinearLayout.LayoutParams txtLayParam = new LinearLayout.LayoutParams(400,200);
-        TextView textLabel = new TextView(this);
-        textLabel.setText("Gesamtsumme:");
-        textLabel.setLayoutParams(txtLayParam);
-        textLabel.setGravity(Gravity.CENTER);
-
-        TextView totalSum = new TextView(this);
-        totalSum.setId(R.id.totalSumLabel);
-        totalSum.setText("0€");
-
-        Button submitBtn = new Button(this);
-        submitBtn.setText("submit");
-        submitBtn.setGravity(Gravity.CENTER);
-
-        Button showListBtn = new Button(this);
-        showListBtn.setText("show List");
-        showListBtn.setGravity(Gravity.CENTER);
-
-        totalRow.addView(textLabel);
-        totalRow.addView(totalSum);
-        totalRow.addView(submitBtn);
-        totalRow.addView(showListBtn);
-        totalRow.setGravity(Gravity.CENTER);
+        Button submitBtn = (Button) findViewById(R.id.submitBtn);
+        Button showListBtn = (Button) findViewById(R.id.showCSVBtn);
 
         submitBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -114,12 +81,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        return  totalRow;
     }
 
     public void updateTotalSum(){
         calcTotalSum();
-        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumLabel);
+        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumVal);
         totalSumLabel.setText(Float.toString(totalSum)+"€");
     }
 
@@ -141,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void submit() {
 
-        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumLabel);
+        TextView totalSumLabel = (TextView) findViewById(R.id.totalSumVal);
         String totalSum = totalSumLabel.getText().toString();
         System.out.println(totalSum);
 

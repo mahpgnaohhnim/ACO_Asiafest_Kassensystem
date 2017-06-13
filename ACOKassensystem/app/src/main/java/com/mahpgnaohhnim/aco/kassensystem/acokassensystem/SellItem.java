@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,6 +30,7 @@ public class SellItem extends TableRow {
         TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
         this.setLayoutParams(tableRowParams);
+        this.setMinimumHeight(200);
 
         this.itemName = name;
         this.sellPrice = price;
@@ -41,13 +43,13 @@ public class SellItem extends TableRow {
         quantityLabel = new TextView(context);
 
 
-        TableRow.LayoutParams nameLabelParams = new TableRow.LayoutParams(600,150);
+        TableRow.LayoutParams nameLabelParams = new TableRow.LayoutParams(/*TableRow.LayoutParams.MATCH_PARENT*/500, LayoutParams.MATCH_PARENT);
 
         nameLabel.setText(this.itemName);
         nameLabel.setGravity(Gravity.CENTER_VERTICAL);
         nameLabel.setLayoutParams(nameLabelParams);
 
-        TableRow.LayoutParams textLabelParams = new TableRow.LayoutParams(150,150);
+        TableRow.LayoutParams textLabelParams = new TableRow.LayoutParams(100, LayoutParams.MATCH_PARENT);
         textLabelParams.gravity = Gravity.CENTER_VERTICAL;
 
         priceLabel.setText(Integer.toString(this.quantity)+"€");
@@ -58,7 +60,7 @@ public class SellItem extends TableRow {
         quantityLabel.setGravity(Gravity.CENTER);
         quantityLabel.setLayoutParams(textLabelParams);
 
-        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(100,100);
+        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(150,LayoutParams.WRAP_CONTENT);
         btnParams.gravity = Gravity.CENTER;
 
         addBtn.setText("+");
