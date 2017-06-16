@@ -34,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
         totalSum = 0;
         itemTable = (TableLayout) findViewById(R.id.itemTable);
 
-        SellItem bBaoK = new SellItem(this, "Banh Bao Klassisch", 3.5f);
-        SellItem bBaoV = new SellItem(this, "Banh Bao Vegetarisch", 3.0f);
-        SellItem bBaoKBundle = new SellItem(this, "Banh Bao Bundle Klassisch", 5.0f);
-        SellItem bBaoVBundle = new SellItem(this, "Banh Bao Bundle Vegetarisch", 5.0f);
+        SellItem bBaoK = new SellItem(this, "Banh Bao Klassisch", 3.50f);
+        SellItem bBaoV = new SellItem(this, "Banh Bao Vegetarisch", 3f);
+        SellItem bBaoKBundle = new SellItem(this, "Banh Bao Bundle Klassisch", 5.50f);
+        SellItem bBaoVBundle = new SellItem(this, "Banh Bao Bundle Vegetarisch", 5f);
 
-        SellItem sRollK = new SellItem(this, "Sommer Rollen Klassisch", 4f);
+        SellItem sRollK = new SellItem(this, "Sommer Rollen Klassisch", 4.50f);
         SellItem sRollV = new SellItem(this, "Sommer Rollen Vegetarisch", 4f);
-        SellItem sRollKBundle = new SellItem(this, "Sommer Rollen Bundle Klassisch", 5.5f);
-        SellItem sRollVBundle = new SellItem(this, "Sommer Rollen Bundle Vegetarisch", 5.5f);
+        SellItem sRollKBundle = new SellItem(this, "Sommer Rollen Bundle Klassisch", 6.50f);
+        SellItem sRollVBundle = new SellItem(this, "Sommer Rollen Bundle Vegetarisch", 6f);
 
-        SellItem limJuice = new SellItem(this, "Limetten Saft", 2.5f);
+        SellItem limJuice = new SellItem(this, "Limetten Saft", 3f);
 
         LinearLayout summary = initSummaryRow();
 

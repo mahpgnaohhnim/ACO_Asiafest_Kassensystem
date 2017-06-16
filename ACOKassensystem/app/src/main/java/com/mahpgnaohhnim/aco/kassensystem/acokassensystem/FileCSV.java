@@ -94,8 +94,7 @@ class FileCSV {
     public void rewriteFile(ArrayList<String> list){
         String content = "";
         for(String listItem :list){
-            listItem.replace("|",";");
-            content += listItem+"\n";
+            content += listItem.replace("|",";")+"\n";
         }
 
         try {
