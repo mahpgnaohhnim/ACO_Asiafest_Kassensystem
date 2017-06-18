@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="30dp"
             android:background="#53A1E8"
             android:text="zuruck" />
 
@@ -31,11 +32,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="30dp"
             android:background="#FF4900"
             android:text="Delete" />
 
         <Button
             android:id="@+id/shareBtn"
+            android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

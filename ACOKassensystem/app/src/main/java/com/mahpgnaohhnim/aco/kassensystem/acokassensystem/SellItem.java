@@ -41,24 +41,27 @@ public class SellItem extends TableRow {
         quantityLabel = new TextView(context);
 
 
-        TableRow.LayoutParams nameLabelParams = new TableRow.LayoutParams(600,150);
+        TableRow.LayoutParams nameLabelParams = new TableRow.LayoutParams(300,100);
 
         nameLabel.setText(this.itemName);
+        nameLabel.setTextSize(22);
         nameLabel.setGravity(Gravity.CENTER_VERTICAL);
         nameLabel.setLayoutParams(nameLabelParams);
 
-        TableRow.LayoutParams textLabelParams = new TableRow.LayoutParams(150,150);
+        TableRow.LayoutParams textLabelParams = new TableRow.LayoutParams(150,100);
         textLabelParams.gravity = Gravity.CENTER_VERTICAL;
 
         priceLabel.setText(Integer.toString(this.quantity)+"€");
         priceLabel.setGravity(Gravity.CENTER);
+        priceLabel.setTextSize(22);
         priceLabel.setLayoutParams(textLabelParams);
 
         quantityLabel.setText(Integer.toString(this.quantity));
+        quantityLabel.setTextSize(22);
         quantityLabel.setGravity(Gravity.CENTER);
         quantityLabel.setLayoutParams(textLabelParams);
 
-        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(100,100);
+        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(100,60);
         btnParams.gravity = Gravity.CENTER;
 
         addBtn.setText("+");

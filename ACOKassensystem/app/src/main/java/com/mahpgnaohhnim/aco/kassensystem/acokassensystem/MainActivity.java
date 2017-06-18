@@ -34,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
         totalSum = 0;
         itemTable = (TableLayout) findViewById(R.id.itemTable);
 
-        SellItem bBaoK = new SellItem(this, "Banh Bao Klassisch", 3.50f);
-        SellItem bBaoV = new SellItem(this, "Banh Bao Vegetarisch", 3f);
-        SellItem bBaoKBundle = new SellItem(this, "Banh Bao Bundle Klassisch", 5.50f);
-        SellItem bBaoVBundle = new SellItem(this, "Banh Bao Bundle Vegetarisch", 5f);
+        SellItem bBaoK = new SellItem(this, "Banh Bao Klassisch", 4.50f);
+        SellItem bBaoV = new SellItem(this, "Banh Bao Vegetarisch", 4.50f);
+        SellItem bBaoKBundle = new SellItem(this, "Banh Bao Bundle Klassisch", 8f);
+        SellItem bBaoVBundle = new SellItem(this, "Banh Bao Bundle Vegetarisch", 8f);
 
         SellItem sRollK = new SellItem(this, "Sommer Rollen Klassisch", 4.50f);
-        SellItem sRollV = new SellItem(this, "Sommer Rollen Vegetarisch", 4f);
-        SellItem sRollKBundle = new SellItem(this, "Sommer Rollen Bundle Klassisch", 6.50f);
-        SellItem sRollVBundle = new SellItem(this, "Sommer Rollen Bundle Vegetarisch", 6f);
+        SellItem sRollV = new SellItem(this, "Sommer Rollen Vegetarisch", 4.50f);
+        SellItem sRollKBundle = new SellItem(this, "Sommer Rollen Bundle Klassisch", 8f);
+        SellItem sRollVBundle = new SellItem(this, "Sommer Rollen Bundle Vegetarisch", 8f);
 
-        SellItem limJuice = new SellItem(this, "Limetten Saft", 3f);
+        SellItem limJuice = new SellItem(this, "Limetten Saft", 4f);
 
         LinearLayout summary = initSummaryRow();
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         bBaoVBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollKBundle.setBackgroundColor(Color.rgb(255,223,117));
         sRollVBundle.setBackgroundColor(Color.rgb(255,223,117));
-        limJuice.setBackgroundColor(Color.rgb(255,223,117));
+        //limJuice.setBackgroundColor(Color.rgb(255,223,117));
 
         itemTable.addView(bBaoK);
         itemTable.addView(bBaoV);
@@ -74,24 +74,33 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout totalRow = new LinearLayout(this);
         totalRow.setLayoutParams(totalLabelParam);
-        totalRow.setBackgroundColor(Color.rgb(119,182,239));
+        totalRow.setBackgroundColor(Color.rgb(222,222,222));
 
         LinearLayout.LayoutParams txtLayParam = new LinearLayout.LayoutParams(400,200);
         TextView textLabel = new TextView(this);
         textLabel.setText("Gesamtsumme:");
+        textLabel.setTextSize(26);
         textLabel.setLayoutParams(txtLayParam);
         textLabel.setGravity(Gravity.CENTER);
 
         TextView totalSum = new TextView(this);
         totalSum.setId(R.id.totalSumLabel);
+        totalSum.setTextSize(26);
         totalSum.setText("0€");
 
         Button submitBtn = new Button(this);
         submitBtn.setText("submit");
+        submitBtn.setTextSize(30);
         submitBtn.setGravity(Gravity.CENTER);
+        submitBtn.setWidth(200);
+        submitBtn.setBackgroundColor(Color.rgb(119,182,239));
+        submitBtn.setHeight(100);
 
         Button showListBtn = new Button(this);
         showListBtn.setText("show List");
+        showListBtn.setTextSize(22);
+        showListBtn.setHeight(80);
+        showListBtn.setWidth(150);
         showListBtn.setGravity(Gravity.CENTER);
 
         totalRow.addView(textLabel);
